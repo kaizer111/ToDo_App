@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:routine/Screens/HomePage.dart';
 
 class NewTask extends StatelessWidget {
 
@@ -95,7 +96,9 @@ class NewTask extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[50],
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+        },
         child: Icon(Icons.check_outlined,color: Colors.blue),
       ),
     );

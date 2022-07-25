@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:routine/Controller/DatetimeController.dart';
 import 'package:routine/Screens/HomePage.dart';
 
 class NewTask extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
+    final datetimeController= Provider.of<DatetimeController>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('New Task'),
@@ -15,13 +16,18 @@ class NewTask extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 20, 1, 1),
-            child: Text('What is to be done',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.blue),),
+            child: Text(
+              'What is to be done',
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            ),
           ),
-
           Row(
             children: [
               SizedBox(
-                width:  MediaQuery.of(context).size.width*0.9,
+                width: MediaQuery.of(context).size.width * 0.85,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: TextFormField(
@@ -35,7 +41,11 @@ class NewTask extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(Icons.mic_outlined,size: 30),
+              Icon(
+                Icons.mic_outlined,
+                size: 35,
+                color: Colors.blue,
+              ),
             ],
           ),
           SizedBox(
@@ -43,53 +53,93 @@ class NewTask extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Text('Due Date',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.blue),),
+            child: Text(
+              'Due Date',
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
+            ),
           ),
           Row(
             children: [
               SizedBox(
-                width:  MediaQuery.of(context).size.width*0.9,
+                width: MediaQuery.of(context).size.width * 0.85,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: TextFormField(
+                    readOnly: true,
                     decoration: InputDecoration(
-                      hintText: 'Date Not Set',
+                      hintText: '${datetimeController.selecteddate.year}-${datetimeController.selecteddate.month}-${datetimeController.selecteddate.day}',
                       focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(width: 5),
+                        borderRadius: BorderRadius.circular(3),
+                        borderSide: BorderSide(width: 3),
                       ),
                     ),
                   ),
                 ),
               ),
-              Icon(Icons.calendar_month_outlined),
+              IconButton(
+                onPressed: () async {
+                  final scaffoldMessenger = ScaffoldMessenger.of(context);
+                  DateTime? selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100));
+                  if(selectedDate==null){
+                    scaffoldMessenger.showSnackBar(SnackBar(content: const Text('No date selected',style: TextStyle(
+                      color: Colors.white
+                    ),)
+                    ,backgroundColor: Colors.red.shade300,));
+                  }
+                  else{
+                    datetimeController.selecteddate=selectedDate;
+                  }
+                },
+                icon: Icon(
+                  Icons.calendar_month_outlined,
+                  color: Colors.blue,
+                  size: 35,
+                ),
+              ),
             ],
           ),
           SizedBox(
             height: 50,
           ),
-          Padding(
+         const  Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: Text('Description',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25,color: Colors.blue),),
+            child: Text(
+              'Description',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.blue),
+            ),
           ),
           Row(
             children: [
               SizedBox(
-                width:  MediaQuery.of(context).size.width*0.9,
+                width: MediaQuery.of(context).size.width * 0.85,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Enter description',
                       focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(width: 5),
+                        borderRadius: BorderRadius.circular(2),
+                        borderSide: BorderSide(width: 2),
                       ),
                     ),
                   ),
                 ),
               ),
-              Icon(Icons.note_add_outlined),
+              Icon(
+                Icons.note_add_outlined,
+                color: Colors.blue,
+                size: 35,
+              ),
             ],
           ),
         ],
@@ -97,9 +147,10 @@ class NewTask extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[50],
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
         },
-        child: Icon(Icons.check_outlined,color: Colors.blue),
+        child: Icon(Icons.check_outlined, color: Colors.blue),
       ),
     );
   }

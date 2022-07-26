@@ -6,6 +6,7 @@ import 'package:routine/Screens/NewTask.dart';
 
 class HomePage extends StatelessWidget {
 
+  bool ischecked=false;
 
   @override
   Widget build(BuildContext context) {
@@ -73,19 +74,32 @@ class HomePage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.check_box_outlined,size: 40,),
+                  child: Checkbox(
+                    value: ischecked,
+                    hoverColor: Colors.blue,
+                    onChanged: (bool? value) {
+                      ischecked = value!;
+                    },
+                  )
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(dataController.taskList[index].taskname),
+                    Row(
+                      children: [
+                        Text(dataController.taskList[index].taskname,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        Text(datetimecontroller.selecteddate.toString(),style: TextStyle(fontSize: 14),),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(dataController.taskList[index].taskdesc),
                   ],
                 ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(datetimecontroller.selecteddate.toString()),
               ],
             ),
           ),

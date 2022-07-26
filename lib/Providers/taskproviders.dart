@@ -9,11 +9,14 @@ class TaskProviders extends ChangeNotifier {
   void addtask(TaskModel taskModel) {
 
     taskList.add(taskModel);
+    notifyListeners();
+
 
   }
   void removetask(int index) {
 
     taskList.removeAt(index);
+    notifyListeners();
 
   }
 

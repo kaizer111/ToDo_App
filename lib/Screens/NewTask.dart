@@ -182,6 +182,7 @@ class NewTask extends StatelessWidget {
                 taskname: tasknamecontroller.text,
                 taskdesc: taskdesccontoller.text,
                 duedate: datetimeController.selecteddate));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         },
         child: const Icon(Icons.check_outlined, color: Colors.blue),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:routine/Controller/DatetimeController.dart';
 import 'package:routine/Providers/taskproviders.dart';
 import 'package:routine/Screens/HomePage.dart';
+import 'package:routine/Screens/settings.dart';
 import 'package:routine/models/task_model.dart';
 
 class NewTask extends StatelessWidget {

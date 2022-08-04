@@ -5,7 +5,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('settings'),
+      body: Center(child: Text('settings')),
     );
   }
 }

@@ -22,13 +22,21 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: PopupMenuButton(
+              onSelected: (value){
+                if(value=="settings"){
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Settings()));
+                }
+
+              },
               itemBuilder: (BuildContext context) => [
                 PopupMenuItem(
+
                   child: Text('Settings'),
+                  value: "settings",
                   onTap: () {
                     print("tap");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Settings()));
+
                   },
                 ),
                 PopupMenuItem(child: Text('pata nahi'),

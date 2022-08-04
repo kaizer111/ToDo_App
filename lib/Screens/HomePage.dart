@@ -4,6 +4,7 @@ import 'package:routine/Controller/DatetimeController.dart';
 import 'package:routine/Providers/taskproviders.dart';
 import 'package:routine/Screens/NewTask.dart';
 import 'package:routine/Screens/settings.dart';
+import 'package:routine/models/searchbar.dart';
 
 class HomePage extends StatelessWidget {
   bool ischecked = false;
@@ -18,28 +19,28 @@ class HomePage extends StatelessWidget {
         leading: const Icon(Icons.check_circle_rounded, size: 40),
         title: Text('All Lists'),
         actions: [
-          Icon(Icons.search_outlined),
+          IconButton(onPressed: () {
+            showSearch(context: context, delegate: Mysearchdelegate());
+          }, icon: Icon(Icons.search_outlined)),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: PopupMenuButton(
-              onSelected: (value){
-                if(value=="settings"){
+              onSelected: (value) {
+                if (value == "settings") {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Settings()));
                 }
-
               },
               itemBuilder: (BuildContext context) => [
                 PopupMenuItem(
-
                   child: Text('Settings'),
                   value: "settings",
                   onTap: () {
                     print("tap");
-
                   },
                 ),
-                PopupMenuItem(child: Text('pata nahi'),
+                PopupMenuItem(
+                  child: Text('pata nahi'),
                 ),
                 PopupMenuItem(child: Text('firse nahi pata')),
                 PopupMenuItem(child: Text('kuch nhi')),
